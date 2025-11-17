@@ -1,0 +1,19 @@
+[
+  {
+    "userId": "8d760c19-da9d-49b3-b44e-a8b598b0603a",
+    "role": "INSTRUCTOR",
+    "username": "eyad",
+    "email": "1@gmail.com",
+    "passwordHash": "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+    "createdCourses": ["3f60ee76-a5d0-476a-97c7-8fefe756cd2d", "f50452ff-1dbd-4354-ad96-37afead983bf"]
+  },
+  {
+    "userId": "0ca2f864-79b0-4f9a-94e8-da23fcc90c3a",
+    "role": "STUDENT",
+    "username": "eyad2",
+    "email": "2@gmail.com",
+    "passwordHash": "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+    "enrolledCourses": ["3f60ee76-a5d0-476a-97c7-8fefe756cd2d"],
+    "progress": {"3f60ee76-a5d0-476a-97c7-8fefe756cd2d": []}
+  }
+]

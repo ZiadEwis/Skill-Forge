@@ -20,7 +20,9 @@ public class CourseService {
         this.dbManager = dbManager;
     }
     
-    
+    /**
+     * Create a new course
+     */
     public Course createCourse(String title, String description, String instructorId) throws IllegalArgumentException {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("Course title is required");
@@ -34,6 +36,7 @@ public class CourseService {
         
         dbManager.addCourse(course);
         
+        // Update instructor's created courses
         User user = dbManager.getUserById(instructorId);
         if (user instanceof Instructor) {
             Instructor instructor = (Instructor) user;
@@ -44,12 +47,16 @@ public class CourseService {
         return course;
     }
     
-    
+    /**
+     * Update course
+     */
     public void updateCourse(Course course) {
         dbManager.updateCourse(course);
     }
     
-    
+    /**
+     * Delete course
+     */
     public void deleteCourse(String courseId, String instructorId) throws IllegalArgumentException {
         Course course = dbManager.getCourseById(courseId);
         if (course == null) {
@@ -59,6 +66,7 @@ public class CourseService {
             throw new IllegalArgumentException("Only the course instructor can delete this course");
         }
         
+        // Remove course from instructor's created courses
         User user = dbManager.getUserById(instructorId);
         if (user instanceof Instructor) {
             Instructor instructor = (Instructor) user;
@@ -66,6 +74,7 @@ public class CourseService {
             dbManager.updateUser(instructor);
         }
         
+        // Remove course from enrolled students
         for (String studentId : course.getStudents()) {
             User studentUser = dbManager.getUserById(studentId);
             if (studentUser instanceof Student) {
@@ -79,7 +88,9 @@ public class CourseService {
         dbManager.deleteCourse(courseId);
     }
     
-    
+    /**
+     * Add lesson to course
+     */
     public void addLesson(String courseId, String title, String content, String instructorId) throws IllegalArgumentException {
         Course course = dbManager.getCourseById(courseId);
         if (course == null) {
@@ -98,7 +109,9 @@ public class CourseService {
         dbManager.updateCourse(course);
     }
     
-    
+    /**
+     * Update lesson
+     */
     public void updateLesson(String courseId, String lessonId, String title, String content, String instructorId) throws IllegalArgumentException {
         Course course = dbManager.getCourseById(courseId);
         if (course == null) {
@@ -123,7 +136,9 @@ public class CourseService {
         dbManager.updateCourse(course);
     }
     
-    
+    /**
+     * Delete lesson
+     */
     public void deleteLesson(String courseId, String lessonId, String instructorId) throws IllegalArgumentException {
         Course course = dbManager.getCourseById(courseId);
         if (course == null) {
@@ -135,6 +150,7 @@ public class CourseService {
         
         course.removeLesson(lessonId);
         
+        // Remove lesson from all students' progress
         for (String studentId : course.getStudents()) {
             User studentUser = dbManager.getUserById(studentId);
             if (studentUser instanceof Student) {
@@ -149,17 +165,23 @@ public class CourseService {
         dbManager.updateCourse(course);
     }
     
-    
+    /**
+     * Get all courses
+     */
     public List<Course> getAllCourses() {
         return dbManager.loadCourses();
     }
     
-    
+    /**
+     * Get course by ID
+     */
     public Course getCourseById(String courseId) {
         return dbManager.getCourseById(courseId);
     }
     
-    
+    /**
+     * Get courses by instructor
+     */
     public List<Course> getCoursesByInstructor(String instructorId) {
         List<Course> allCourses = dbManager.loadCourses();
         List<Course> instructorCourses = new ArrayList<>();
@@ -171,7 +193,9 @@ public class CourseService {
         return instructorCourses;
     }
     
-    
+    /**
+     * Get enrolled students for a course
+     */
     public List<Student> getEnrolledStudents(String courseId) {
         Course course = dbManager.getCourseById(courseId);
         if (course == null) {
@@ -188,7 +212,9 @@ public class CourseService {
         return students;
     }
     
-    
+    /**
+     * Enroll student in course
+     */
     public void enrollStudent(String courseId, String studentId) throws IllegalArgumentException {
         Course course = dbManager.getCourseById(courseId);
         if (course == null) {
@@ -212,13 +238,17 @@ public class CourseService {
         dbManager.updateCourse(course);
     }
     
-    
+    /**
+     * Get lessons by course
+     */
     public List<Lesson> getLessonsByCourse(String courseId) {
         Course course = dbManager.getCourseById(courseId);
         return course != null ? course.getLessons() : new ArrayList<>();
     }
     
-    
+    /**
+     * Mark lesson as completed
+     */
     public void markLessonCompleted(String courseId, String lessonId, String studentId) throws IllegalArgumentException {
         Course course = dbManager.getCourseById(courseId);
         if (course == null) {
@@ -243,7 +273,9 @@ public class CourseService {
         dbManager.updateUser(student);
     }
     
-    
+    /**
+     * Get available courses (not enrolled by student)
+     */
     public List<Course> getAvailableCourses(String studentId) {
         List<Course> allCourses = dbManager.loadCourses();
         User user = dbManager.getUserById(studentId);

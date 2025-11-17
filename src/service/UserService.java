@@ -1,8 +1,8 @@
 package service;
 
 
-import test.database.JsonDatabaseManager;
-import test.model.User;
+import database.JsonDatabaseManager;
+import model.User;
 
 public class UserService {
     private final JsonDatabaseManager dbManager;

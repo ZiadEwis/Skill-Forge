@@ -1,12 +1,12 @@
 package ui;
 
-import test.database.JsonDatabaseManager;
-import test.model.Course;
-import test.model.Lesson;
-import test.model.Student;
-import test.service.AuthenticationService;
-import test.service.CourseService;
-import test.service.UserService;
+import database.JsonDatabaseManager;
+import model.Course;
+import model.Lesson;
+import model.Student;
+import service.AuthenticationService;
+import service.CourseService;
+import service.UserService;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;

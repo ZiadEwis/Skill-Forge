@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Lesson class representing a lesson within a course
+ */
 public class Lesson {
     private String lessonId;
     private String title;

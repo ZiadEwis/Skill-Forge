@@ -1,32 +1,36 @@
-package models;
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
+package model;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Instructor extends User {
-    private List<String> createdCourses; 
+   private List<String> createdCourses = new ArrayList();
 
-    public Instructor(String userId, String username, String email, String passwordHash) {
-        super(userId, "Instructor", username, email, passwordHash); 
-        this.createdCourses = new ArrayList<>();
-    }
-    
-    public Instructor() {
-        super();
-        this.createdCourses = new ArrayList<>();
-    }
+   public Instructor() {
+      this.role = "INSTRUCTOR";
+   }
 
-    public List<String> getCreatedCourses() {
-        return createdCourses;
-    }
+   public Instructor(String userId, String username, String email, String passwordHash) {
+      super(userId, "INSTRUCTOR", username, email, passwordHash);
+   }
 
-    public void setCreatedCourses(List<String> createdCourses) {
-        this.createdCourses = createdCourses;
-    }
+   public List<String> getCreatedCourses() {
+      return this.createdCourses;
+   }
 
-    public void addCreatedCourse(String courseId) {
-        if (courseId != null && !this.createdCourses.contains(courseId)) {
-            this.createdCourses.add(courseId);
-        }
-    }
+   public void setCreatedCourses(List<String> createdCourses) {
+      this.createdCourses = createdCourses;
+   }
+
+   public void addCourse(String courseId) {
+      if (!this.createdCourses.contains(courseId)) {
+         this.createdCourses.add(courseId);
+      }
+
+   }
+
+   public void removeCourse(String courseId) {
+      this.createdCourses.remove(courseId);
+   }
 }
